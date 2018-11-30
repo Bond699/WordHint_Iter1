@@ -23,6 +23,7 @@ public class MainMenuActivity extends AppCompatActivity {
         // the back button on the device. This keeps the Main Menu level in sync.
         super.onResume();
         TextView tv = findViewById(R.id.main_menu_level);
+        //tv.setText(getResources().getString(R.string.level_level) + model.getCurrentPuzzle());
         tv.setText(getResources().getString(R.string.level_level) + model.getCurrentPuzzle());
     }
 

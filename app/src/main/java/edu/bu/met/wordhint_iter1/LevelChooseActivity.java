@@ -49,7 +49,9 @@ public class LevelChooseActivity extends AppCompatActivity {
         }
         else {
             tv.setBackgroundResource(R.drawable.level_button_grey);
-            tv.setText(getResources().getString(R.string.level_level) + level + getResources().getString(R.string.level_locked));
+            tv.setText(getResources().getString(R.string.level_level) + level +
+                    getResources().getString(R.string.level_locked));
+            //tv.setText(getResources().getString(R.string.level_level) + level + getResources().getString(R.string.level_locked));
         }
 
         tv.setTextColor(getResources().getColor(R.color.white_letter));
