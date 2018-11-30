@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#27576b</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorBlueBack">#3c4fa2</color>
+    <color name="background_header">#aa4f3a</color>
+    <color name="background_game">#ffffff</color>
+    <color name="solution">#aa4f3a</color>
+    <color name="pool">#27576b</color>
+    <color name="puzzle_background">#e3e4e6</color>
+    <color name="blank_letter">#e3e4e6</color>
+    <color name="pool_letter">#75bf1e</color>
+    <color name="pool_letter_foreground">#ffffff</color>
+    <color name="continue_darker">#47691d</color>
+    <color name="white_letter">#ffffff</color>
+    <color name="hint">#ffdb6d</color>
+    <color name="hint_background">#27576b</color>
+    <color name="hintOutline">#aa4f3a</color>
+    <color name="hint_button_grey">#8d8d8d</color>
+    <color name="black_letter">#000000</color>
+    <color name="main_menu_backround">#27576b</color>
+    <color name="main_menu_compound">#9cbac6</color>
+    <color name="main_menu_level">#3592b8</color>
+    <color name="main_menu_play">#75bf1c</color>
+
+</resources>

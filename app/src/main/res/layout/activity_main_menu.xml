@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_menu_background"
+    tools:context=".MainMenuActivity" >
+
+    <ImageView
+        android:id="@+id/main_menu_logo"
+        android:layout_width="0dp"
+        android:layout_height="171dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/main_menu_logo" />
+
+    <TextView
+        android:id="@+id/main_menu_slogan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/main_menu_compound"
+        android:textSize="30sp"
+        android:fontFamily="@font/hug_me_tight"
+        android:text="COMPOUND WORD GAME"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_menu_logo" />
+
+    <TextView
+        android:id="@+id/main_menu_level"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="99dp"
+        android:background="@color/main_menu_level"
+        android:fontFamily="@font/hug_me_tight"
+        android:textSize="50sp"
+        android:onClick="onClickLevel"
+        android:padding="8dp"
+        android:text="@string/level"
+        android:textAlignment="center"
+        android:textColor="@color/white_letter"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_menu_slogan" />
+
+    <TextView
+        android:id="@+id/main_menu_play"
+        android:layout_width="match_parent"
+        android:layout_height="87dp"
+        android:layout_marginTop="42dp"
+        android:background="@color/main_menu_play"
+        android:fontFamily="@font/hug_me_tight"
+        android:onClick="onClickPlay"
+        android:padding="8dp"
+        android:text="PLAY"
+        android:textAlignment="center"
+        android:textColor="@color/white_letter"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_menu_level"
+        app:layout_constraintVertical_bias="0.0" />
+</android.support.constraint.ConstraintLayout>

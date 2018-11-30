@@ -1,0 +1,101 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/hint_bg"
+    android:gravity="center"
+    android:paddingTop="5dp"
+    android:paddingBottom="25dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
+
+    <TextView
+        android:id="@+id/hint_explanation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="@string/hint_cost_explained"
+        android:textColor="@color/black_letter"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/hint_reveal_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hint_explanation"
+        android:layout_margin="5dp"
+        android:background="@color/hint_background"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/hint_reveal_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="@string/hint_reveal_explained"
+            android:textColor="@color/white_letter"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/hint_reveal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/hint_button"
+                android:padding="10dp"
+                android:src="@drawable/pool_button"
+                android:text="@string/hint_button_ok"
+                android:textColor="@color/white_letter"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/hint_remove_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hint_reveal_area"
+        android:layout_margin="5dp"
+        android:background="@color/hint_background"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/hint_remove_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="@string/hint_remove_explained"
+            android:textColor="@color/white_letter"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/hint_remove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/hint_button"
+                android:padding="10dp"
+                android:src="@drawable/pool_button"
+                android:text="@string/hint_button_ok"
+                android:textColor="@color/white_letter"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

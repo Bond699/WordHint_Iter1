@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">WordHint_Iter1</string>
+    <string name="header_level">WORD X</string>
+    <string name="star_coins">0</string>
+    <string name="puzzle_correct">CORRECT!</string>
+    <string name="continue_button">CONTINUE</string>
+    <string name="hint_cost_explained">If you do not have any stars, hints are free! Stars will
+        not be deducted!</string>
+    <string name="hint_remove_explained">REMOVE ALL wrong letters for 1 star?</string>
+    <string name="hint_reveal_explained">REVEAL 1 solution letter for 1 star?"</string>
+    <string name="hint_button_ok">OK</string>
+    <string name="level">LEVEL</string>
+    <string name="level_level">LEVEL\u0020</string>
+    <string name="level_locked">\u0020- LOCKED</string>
+
+</resources>
