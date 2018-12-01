@@ -1,15 +1,12 @@
 package edu.bu.met.wordhint_iter1;
 
-import android.app.Activity;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.view.Display;
 import android.widget.Button;
 
-import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 
 // Abstract class used by the Button Factory
 public abstract class GameButton {
@@ -42,6 +39,7 @@ public abstract class GameButton {
         height = (int) (width * 1.333); // TODO: revisit this 1.33 calculation/aspect ratio
     }
 
+    // Governs what happens when a button is removed--implemented by concrete classes
     public abstract void removeButton(Button callingButton);
 }
 

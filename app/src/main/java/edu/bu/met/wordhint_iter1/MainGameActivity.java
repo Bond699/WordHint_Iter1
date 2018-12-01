@@ -22,13 +22,10 @@ import java.util.Random;
 public class MainGameActivity extends Activity {
     private final int PUZZLE_AWARD = 5;
     private GameModel model;
-    private ButtonFactory buttonFactory;
     private Button continueButton;
     private RelativeLayout poolAreaLayout;
     private TextView success;
-    private Dialog dialog;
     private Typeface font;
-    private View dialogView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +48,7 @@ public class MainGameActivity extends Activity {
     }
 
     private void initPuzzle() {
-        this.buttonFactory = new ButtonFactory();
+        ButtonFactory buttonFactory = new ButtonFactory();
         buttonFactory.createButtons(this, model);
         ImageView iv = findViewById(R.id.image_puzzle_display);
         iv.setImageResource(getResources().getIdentifier("puzzle_" + model.getImage(),
@@ -165,145 +162,11 @@ public class MainGameActivity extends Activity {
         poolAreaLayout.addView(success);
     }
 
+    // public HintDialog(Context context, GameModel model, MainMenuActivity activity, int blankLetters)
     public void onHintClick(View view) {
         // Setup the dialog box and the view
-        dialog = new Dialog(this);
-        dialogView = dialog.getLayoutInflater().inflate(R.layout.activity_hint, null);
-        dialog.setContentView(dialogView);
-
-        // Determine screen size to determine size of the dialog box
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width = dm.widthPixels;
-        int height = (int)(dm.heightPixels * .55);
-
-        // Make Hint buttons gray if they can't be used.
-        if (model.getRemoveHint()) {
-            Button hintRemove = (Button) dialogView.findViewById(R.id.hint_remove);
-            hintRemove.setBackgroundResource(R.drawable.hint_button_grey);
-        }
-
-        if (getBlankLetters().size() < 2) {
-            Button hintRemove = (Button) dialogView.findViewById(R.id.hint_reveal);
-            hintRemove.setBackgroundResource(R.drawable.hint_button_grey);
-        }
-
-        dialog.getWindow().setLayout(width, height);
-        dialog.show();
-
-        // Assign on click listeners and handlers for the two Hint buttons
-        onHintRevealClick();
-        onHintRemoveClick();
-    }
-
-    // REVEAL button functionality
-    private void onHintRevealClick() {
-        Button hintReveal = (Button) dialogView.findViewById(R.id.hint_reveal);
-        hintReveal.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Get a list of blank letters in the solution area
-                List<GameButton> blankLetters = getBlankLetters();
-
-                // Don't allow reveal to be used with up to N-2 letters remaining
-                if (blankLetters.size() < 2) {
-                    dialog.dismiss();
-                    return;
-                }
-
-                // Find a random blank letter to reveal in the list of blank Solution Letters.
-                GameButton reveal = blankLetters.get(new Random().nextInt(blankLetters.size()));
-                // Subtract the offset from the button id to find it's button's position in array.
-                int buttonPosition = reveal.button.getId() - (GameButton.ID_OFFSET * 2);
-
-                // Find a button in the pool area with the same alphabetical letter using position
-                GameButton gb = findButtonFromLetter(model.word.get(buttonPosition));
-                gb.button.setVisibility(View.INVISIBLE);
-                reveal.button.setBackgroundResource(R.drawable.pool_button);
-                reveal.button.setTextColor(getResources().getColor(R.color.white_letter));
-                reveal.button.setText(gb.button.getText());
-                reveal.button.setClickable(false); // User can't remove this letter
-
-                deductHintCost();
-                // Save the puzzle state so if user doesn't finish puzzle now, they  still see hint
-                model.io.savePoolButtons();
-                model.io.saveSolutionButtons();
-                model.io.saveAddedToPool();
-                dialog.dismiss();
-            }
-        });
-    }
-
-    // REMOVE button functionality
-    private void onHintRemoveClick() {
-        Button hintRemove = (Button) dialogView.findViewById(R.id.hint_remove);
-        hintRemove.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (model.getRemoveHint()) { // Don't allow Remove all to run twice
-                    dialog.dismiss();
-                    return;
-                }
-                model.setRemoveHint(true);
-
-                //Loop through each letter in the solution word.
-                for (int i = 0; i < model.word.size(); i++) {
-                    // Do nothing to blank buttons
-                    if (model.solutionButtons.get(i).button.getText().equals("")) {
-                        continue;
-                    }
-
-                    // If there's a wrong letter in the solution, send the button back into pool
-                    if (!model.solutionButtons.get(i).button.getText().toString().equals(model.word.get(i))) {
-                        GameButton gb = model.solutionButtons.get(i);
-                        gb.removeButton(gb.button);
-                    }
-                }
-
-                // Remove all letters from the pool of available letters if it's not in the solution.
-                for (String letter : model.addedToPool) {
-                    GameButton remove = findButtonFromLetter(letter);
-                    if (remove == null) {
-                        continue;
-                    }
-                    remove.button.setVisibility(View.INVISIBLE);
-                }
-
-                deductHintCost();
-                // Save the puzzle state so if user doesn't finish puzzle now, they  still see hint
-                model.io.savePoolButtons();
-                model.io.saveSolutionButtons();
-                model.io.saveAddedToPool();
-                model.io.saveRemoveHint();
-                dialog.dismiss();
-            }
-        });
-    }
-
-    // Returns a list of blank letters in the solution area--that is, letters that have no letter
-    // showing.
-    private List<GameButton> getBlankLetters() {
-        List <GameButton>onlyBlank = new ArrayList<>();
-        for (GameButton gb : model.solutionButtons) {
-            if (gb.button.getText().equals("")) {
-                onlyBlank.add(gb);
-            }
-        }
-        return onlyBlank;
-    }
-
-    // Find a button in the pool area based on a String letter (A, B, C, etc.)
-    private GameButton findButtonFromLetter(String letter) {
-        for (GameButton gb : model.poolButtons) {
-            if (gb.button.getVisibility() == View.INVISIBLE) {
-                continue;
-            }
-
-            // Return a matching button
-            if (gb.button.getText().toString().equals(letter)) {
-                return gb;
-            }
-        }
-        // Nothing found
-        return null;
+        new HintDialog(this, model);
+        updateStarsView();
     }
 
     private void processSavedPoolButtons() {
@@ -379,13 +242,6 @@ public class MainGameActivity extends Activity {
         model.setRemoveHint(model.io.loadRemoveHint());
     }
 
-    private void deductHintCost() {
-        //Update model
-        if (model.getStars() > 0 ) {
-            model.setStars(model.getStars() - 1);
-            updateStarsView();
-        }
-    }
 
     private void setHintClickable(Boolean clickable) {
         // Guard against user pressing Hint button as/after the Continue Button appears
