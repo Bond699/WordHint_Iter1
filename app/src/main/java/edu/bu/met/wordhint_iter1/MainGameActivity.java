@@ -25,7 +25,7 @@ public class MainGameActivity extends Activity {
     private Button continueButton;
     private RelativeLayout poolAreaLayout;
     private TextView success;
-    private Typeface font;
+    private Typeface font; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
