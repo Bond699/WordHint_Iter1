@@ -2,8 +2,6 @@ package edu.bu.met.wordhint_iter1;
 
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.view.View;
 import android.widget.Button;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +10,15 @@ import java.util.List;
 import java.util.Random;
 
 public class GameModel {
+    private static GameModel instance = null;
+
+    public static GameModel getInstance(Context context) {
+        if(instance == null) {
+            instance = new GameModel(context);
+        }
+        return instance;
+    }
+
     private Boolean removeHint;
     private String image;
     protected InputOutput io;
@@ -27,7 +34,7 @@ public class GameModel {
 
     private Context context;
 
-    public GameModel(Context context) {
+    private GameModel(Context context) {
         this.context = context;
         this.removeHint = false;
         this.puzzles = new ArrayList<>();

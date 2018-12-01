@@ -34,7 +34,8 @@ public class MainGameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game);
-        this.model = new GameModel(this);
+        //this.model = new GameModel(this);
+        this.model = GameModel.getInstance(this);
         this.font = Typeface.createFromAsset(this.getAssets(), "hug_me_tight.ttf");
 
         Intent intent = getIntent();

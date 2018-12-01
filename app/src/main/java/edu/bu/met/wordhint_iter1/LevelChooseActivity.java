@@ -17,7 +17,8 @@ public class LevelChooseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_choose);
-        this.model = new GameModel(this);
+        //this.model = new GameModel(this);
+        this.model = GameModel.getInstance(this);
         this.font = Typeface.createFromAsset(this.getAssets(), "hug_me_tight.ttf");
         populateLevels();
     }

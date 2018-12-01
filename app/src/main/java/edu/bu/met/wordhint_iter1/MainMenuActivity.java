@@ -14,7 +14,8 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        this.model = new GameModel(this);
+        //this.model = new GameModel(this);
+        this.model = GameModel.getInstance(this);
     }
 
     @Override
