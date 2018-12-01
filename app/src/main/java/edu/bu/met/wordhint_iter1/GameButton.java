@@ -1,5 +1,6 @@
 package edu.bu.met.wordhint_iter1;
 
+import android.app.Activity;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.util.TypedValue;
@@ -20,7 +21,6 @@ public abstract class GameButton {
     protected MainGameActivity activity;
     public static final int ID_OFFSET = 100;
     public final int BUTTON_TEXT_SIZE = 28;
-    //private LinearLayout wordLayout;
 
     public GameButton(MainGameActivity activity, int id, GameModel model) {
         this.model = model;
