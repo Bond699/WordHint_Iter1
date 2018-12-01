@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 public class GameModel {
+    // Singleton Pattern
     private static GameModel instance = null;
 
     public static GameModel getInstance(Context context) {
