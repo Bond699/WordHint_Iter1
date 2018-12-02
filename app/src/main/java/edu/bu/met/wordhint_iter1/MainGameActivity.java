@@ -25,7 +25,8 @@ public class MainGameActivity extends Activity {
     private Button continueButton;
     private RelativeLayout poolAreaLayout;
     private TextView success;
-    private Typeface font; 
+    private Typeface font;
+    private ButtonFactory buttonFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class MainGameActivity extends Activity {
     }
 
     private void initPuzzle() {
-        ButtonFactory buttonFactory = new ButtonFactory();
+        buttonFactory = new ButtonFactory();
         buttonFactory.createButtons(this, model);
         ImageView iv = findViewById(R.id.image_puzzle_display);
         iv.setImageResource(getResources().getIdentifier("puzzle_" + model.getImage(),
