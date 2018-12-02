@@ -10,6 +10,8 @@ import android.widget.Button;
 
 // Abstract class used by the Button Factory
 public abstract class GameButton {
+    private String letter;
+    private Boolean hint;
     final int LETTERMARGIN = 6;
     protected Button button;
     protected int width;
@@ -19,8 +21,9 @@ public abstract class GameButton {
     public static final int ID_OFFSET = 100;
     public final int BUTTON_TEXT_SIZE = 28;
 
-    public GameButton(MainGameActivity activity, int id, GameModel model) {
+    public GameButton(MainGameActivity activity, int id, GameModel model, String letter) {
         this.model = model;
+        this.letter = letter;
         this.activity = activity;
         button = new Button(activity);
         button.setTypeface(null, Typeface.BOLD);
@@ -37,6 +40,18 @@ public abstract class GameButton {
         width = (size.x - (numLetters * (LETTERMARGIN * 2))) / numLetters;
         //int width = size.x / 12;
         height = (int) (width * 1.333); // TODO: revisit this 1.33 calculation/aspect ratio
+    }
+
+    public String getLetter() {
+        return letter;
+    }
+
+    public Boolean getHint() {
+        return hint;
+    }
+
+    public void setHint(Boolean hint) {
+        this.hint = hint;
     }
 
     // Governs what happens when a button is removed--implemented by concrete classes

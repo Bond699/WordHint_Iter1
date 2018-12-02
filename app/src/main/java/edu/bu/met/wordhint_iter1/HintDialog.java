@@ -63,10 +63,17 @@ public class HintDialog extends Dialog {
                 // Find a random blank letter to reveal in the list of blank Solution Letters.
                 GameButton reveal = blankLetters.get(new Random().nextInt(blankLetters.size()));
                 // Subtract the offset from the button id to find it's button's position in array.
-                int buttonPosition = reveal.button.getId() - (GameButton.ID_OFFSET * 2);
+                //int buttonPosition = reveal.button.getId() - (GameButton.ID_OFFSET * 2);
 
-                // Find a button in the pool area with the same alphabetical letter using position
-                GameButton gb = findButtonFromLetter(model.word.get(buttonPosition));
+
+
+                // Find a button in the pool area with the same alphabetical letter
+                GameButton gb = findButtonFromLetter(reveal.getLetter());
+                // could be null because the wrong letters are in the solution and are invisible in
+                // the pool ? An invisible button could be made that way because it's in the solution
+                // OR because a reveal/hint made it that way.
+
+
                 gb.button.setVisibility(View.INVISIBLE);
                 reveal.button.setBackgroundResource(R.drawable.pool_button);
                 reveal.button.setTextColor(getContext().getResources().getColor(R.color.white_letter));
@@ -94,21 +101,7 @@ public class HintDialog extends Dialog {
                 }
                 model.setRemoveHint(true);
 
-                //Loop through each letter in the solution word.
-                for (int i = 0; i < model.word.size(); i++) {
-                    // Do nothing to blank buttons
-                    if (model.solutionButtons.get(i).button.getText().equals("")) {
-                        continue;
-                    }
-
-                    // If there's a wrong letter in the solution, send the button back into pool
-                    if (!model.solutionButtons.get(i).button.getText().toString().equals(model.word.get(i))) {
-                        GameButton gb = model.solutionButtons.get(i);
-                        gb.removeButton(gb.button);
-                    }
-                }
-
-                // Remove all letters from the pool of available letters if it's not in the solution.
+                   // Remove all letters from the pool of available letters if it's not in the solution.
                 for (String letter : model.addedToPool) {
                     GameButton remove = findButtonFromLetter(letter);
                     if (remove == null) {
@@ -139,6 +132,21 @@ public class HintDialog extends Dialog {
 
     // Find a button in the pool area based on a String letter (A, B, C, etc.)
     private GameButton findButtonFromLetter(String letter) {
+
+        //Loop through each letter in the solution word.
+        for (int i = 0; i < model.word.size(); i++) {
+            // Do nothing to blank buttons
+            if (model.solutionButtons.get(i).button.getText().equals("")) {
+                continue;
+            }
+
+            // If there's a wrong letter in the solution, send the button back into pool
+            if (!model.solutionButtons.get(i).button.getText().toString().equals(model.word.get(i))) {
+                GameButton gb = model.solutionButtons.get(i);
+                gb.removeButton(gb.button);
+            }
+        }
+
         for (GameButton gb : model.poolButtons) {
             if (gb.button.getVisibility() == View.INVISIBLE) {
                 continue;

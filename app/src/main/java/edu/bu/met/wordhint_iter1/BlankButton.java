@@ -12,8 +12,8 @@ public class BlankButton extends GameButton {
 
     private LinearLayout wordAreaLayout;
 
-    public BlankButton(MainGameActivity activity, int id, GameModel model) {
-        super(activity, id, model);
+    public BlankButton(MainGameActivity activity, int id, GameModel model, String letter) {
+        super(activity, id, model, letter);
 
         wordAreaLayout = activity.findViewById(R.id.word_area);
         button.setText("");

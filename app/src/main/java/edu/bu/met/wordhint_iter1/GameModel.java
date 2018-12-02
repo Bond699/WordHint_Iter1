@@ -71,7 +71,7 @@ public class GameModel {
         io.editor.commit();
     }
 
-    
+
     public Boolean getRemoveHint() {
         return removeHint;
     }

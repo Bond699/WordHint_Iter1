@@ -14,8 +14,8 @@ public class LetterButton extends GameButton {
     private RelativeLayout poolAreaLayout;
     private int idCount;
 
-    public LetterButton(MainGameActivity activity, int id, GameModel model) {
-        super(activity, id, model);
+    public LetterButton(MainGameActivity activity, int id, GameModel model, String letter) {
+        super(activity, id, model, letter);
         poolAreaLayout = activity.findViewById(R.id.pool_area);
         idCount = poolAreaLayout.getId() + ID_OFFSET;
         button.setText("" + model.pool.get(id));
