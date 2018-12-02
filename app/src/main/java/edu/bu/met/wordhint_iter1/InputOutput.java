@@ -23,9 +23,9 @@ public class InputOutput {
         this.sharedPref = context.getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
         this.editor = sharedPref.edit();
 
-        if (!sharedPref.contains(STAR_KEY)) { model.setStars(0); }
-        if (!sharedPref.contains(LEVEL_KEY)) { model.setCurrentPuzzle(1); }
-        if (!sharedPref.contains(HIGHEST_KEY)) { model.setHighestPuzzle(1); }
+        if (!sharedPref.contains(STAR_KEY)) { setStars(0); }
+        if (!sharedPref.contains(LEVEL_KEY)) { setCurrentPuzzle(1); }
+        if (!sharedPref.contains(HIGHEST_KEY)) { setHighestPuzzle(1); }
     }
 
     public void savePoolButtons() {
@@ -109,6 +109,39 @@ public class InputOutput {
         editor.remove(POOL_KEY);
         editor.remove(SOLUTION_KEY);
         editor.remove(ADDED_TO_POOL_KEY);
+        editor.commit();
+    }
+
+    public int getCurrentPuzzle() {
+        return sharedPref.getInt(LEVEL_KEY, -1);
+    }
+
+    public void setCurrentPuzzle(int current) {
+        editor.putInt(LEVEL_KEY, current);
+        editor.commit();
+    }
+
+    public int getHighestPuzzle() {
+        return sharedPref.getInt(HIGHEST_KEY, -1);
+    }
+
+    public void setHighestPuzzle(int highest) {
+        editor.putInt(HIGHEST_KEY, highest);
+        editor.commit();
+    }
+
+    public int getStars() {
+        return sharedPref.getInt(STAR_KEY, -1);
+    }
+
+    public void setStars(int stars) {
+        //this.stars = stars;
+        editor.putInt(STAR_KEY, stars);
+        editor.commit();
+    }
+
+    public void addStars(int stars) {
+        editor.putInt(STAR_KEY, (getStars() + stars));
         editor.commit();
     }
 }

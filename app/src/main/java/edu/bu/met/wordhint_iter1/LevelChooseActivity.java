@@ -25,7 +25,7 @@ public class LevelChooseActivity extends AppCompatActivity {
 
     public void populateLevels() {
         for (int i = 0; i < model.puzzles.size(); i++) {
-            if (i < model.getHighestPuzzle()) {
+            if (i < model.io.getHighestPuzzle()) {
                 createTextView(i + 1, true);
             }
             else {

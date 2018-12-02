@@ -77,7 +77,7 @@ public class MainGameActivity extends Activity {
                 updateLevelView();
                 model.setRemoveHint(false);
                 setHintClickable(true);
-                model.getNextPuzzle(model.getCurrentPuzzle());
+                model.getNextPuzzle(model.io.getCurrentPuzzle());
                 initPuzzle();
             }
         });
@@ -109,24 +109,24 @@ public class MainGameActivity extends Activity {
     }
 
     private void updateStarsModel() {
-        model.addStars(PUZZLE_AWARD);
+        model.io.addStars(PUZZLE_AWARD);
     }
 
     private void updateStarsView() {
         TextView star = findViewById(R.id.star_count);
-        star.setText(Integer.toString(model.getStars()));
+        star.setText(Integer.toString(model.io.getStars()));
     }
 
 
     private void updateLevelView() {
         TextView level = findViewById(R.id.level);
-        level.setText("WORD " + Integer.toString(model.getCurrentPuzzle()));
+        level.setText("WORD " + Integer.toString(model.io.getCurrentPuzzle()));
     }
 
     private void updateLevelModel() {
-        model.setCurrentPuzzle(model.getCurrentPuzzle() + 1);
-        if (model.getCurrentPuzzle() > model.getHighestPuzzle()) {
-            model.setHighestPuzzle(model.getCurrentPuzzle());
+        model.setCurrentPuzzle(model.io.getCurrentPuzzle() + 1);
+        if (model.io.getCurrentPuzzle() > model.io.getHighestPuzzle()) {
+            model.io.setHighestPuzzle(model.io.getCurrentPuzzle());
         }
     }
 

@@ -61,42 +61,17 @@ public class GameModel {
     public void setCurrentPuzzle(int next) {
         // Loop back to the first puzzle for now if all we've reached the puzzle limit
         if (next > puzzles.size()) {
-            io.editor.putInt(io.LEVEL_KEY, 1);
+            io.setCurrentPuzzle(1);
+            //io.editor.putInt(io.LEVEL_KEY, 1);
             io.editor.commit();
             return;
         }
-        io.editor.putInt(io.LEVEL_KEY, next);
+        io.setCurrentPuzzle(next);
+        //io.editor.putInt(io.LEVEL_KEY, next);
         io.editor.commit();
     }
 
-    public int getCurrentPuzzle() {
-        return io.sharedPref.getInt(io.LEVEL_KEY, -1);
-    }
-
-    public int getHighestPuzzle() {
-        return io.sharedPref.getInt(io.HIGHEST_KEY, -1);
-    }
-
-    public void setHighestPuzzle(int highest) {
-        io.editor.putInt(io.HIGHEST_KEY, highest);
-        io.editor.commit();
-    }
-
-    public int getStars() {
-        return io.sharedPref.getInt(io.STAR_KEY, -1);
-    }
-
-    public void setStars(int stars) {
-        //this.stars = stars;
-        io.editor.putInt(io.STAR_KEY, stars);
-        io.editor.commit();
-    }
-
-    public void addStars(int stars) {
-        io.editor.putInt(io.STAR_KEY, (getStars() + stars));
-        io.editor.commit();
-    }
-
+    
     public Boolean getRemoveHint() {
         return removeHint;
     }
@@ -162,7 +137,7 @@ public class GameModel {
         poolButtons.clear();
 
         // What happens when we finish all of our puzzles? We have 2 right now. We start over.
-         if (getCurrentPuzzle() > puzzles.size()) {
+         if (io.getCurrentPuzzle() > puzzles.size()) {
             setCurrentPuzzle(1);
         }
         //String puzzle = puzzles.get(getCurrentPuzzle() - 1); // public puzzle id is 1 based, but arraylist 0 based

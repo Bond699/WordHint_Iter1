@@ -131,8 +131,8 @@ public class HintDialog extends Dialog {
 
     private void deductHintCost() {
         //Update model
-        if (model.getStars() > 0 ) {
-            model.setStars(model.getStars() - 1);
+        if (model.io.getStars() > 0 ) {
+            model.io.setStars(model.io.getStars() - 1);
             //updateStarsView();
         }
     }
