@@ -14,8 +14,7 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        //this.model = new GameModel(this);
-        this.model = GameModel.getInstance(getApplicationContext()); // used to be this
+        this.model = GameModel.getInstance(getApplicationContext());
     }
 
     @Override
@@ -24,7 +23,6 @@ public class MainMenuActivity extends AppCompatActivity {
         // the back button on the device. This keeps the Main Menu level in sync.
         super.onResume();
         TextView tv = findViewById(R.id.main_menu_level);
-        //tv.setText(getResources().getString(R.string.level_level) + model.getCurrentPuzzle());
         tv.setText(getResources().getString(R.string.level_level) + model.io.getCurrentPuzzle());
     }
 

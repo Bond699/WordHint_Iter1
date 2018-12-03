@@ -17,6 +17,7 @@ public class HintDialog extends Dialog {
     public HintDialog(Context context, GameModel model) {
         super(context);
         this.model = model;
+
         // Setup the dialog box and the view
         dialogView = getLayoutInflater().inflate(R.layout.activity_hint, null);
         setContentView(dialogView);
@@ -62,18 +63,9 @@ public class HintDialog extends Dialog {
 
                 // Find a random blank letter to reveal in the list of blank Solution Letters.
                 GameButton reveal = blankLetters.get(new Random().nextInt(blankLetters.size()));
-                // Subtract the offset from the button id to find it's button's position in array.
-                //int buttonPosition = reveal.button.getId() - (GameButton.ID_OFFSET * 2);
-
-
 
                 // Find a button in the pool area with the same alphabetical letter
                 GameButton gb = findButtonFromLetter(reveal.getLetter());
-                // could be null because the wrong letters are in the solution and are invisible in
-                // the pool ? An invisible button could be made that way because it's in the solution
-                // OR because a reveal/hint made it that way.
-
-
                 gb.button.setVisibility(View.INVISIBLE);
                 reveal.button.setBackgroundResource(R.drawable.pool_button);
                 reveal.button.setTextColor(getContext().getResources().getColor(R.color.white_letter));

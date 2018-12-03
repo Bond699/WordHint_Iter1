@@ -17,7 +17,6 @@ public class LevelChooseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_choose);
-        //this.model = new GameModel(this);
         this.model = GameModel.getInstance(this);
         this.font = Typeface.createFromAsset(this.getAssets(), "hug_me_tight.ttf");
         populateLevels();
@@ -52,7 +51,6 @@ public class LevelChooseActivity extends AppCompatActivity {
             tv.setBackgroundResource(R.drawable.level_button_grey);
             tv.setText(getResources().getString(R.string.level_level) + level +
                     getResources().getString(R.string.level_locked));
-            //tv.setText(getResources().getString(R.string.level_level) + level + getResources().getString(R.string.level_locked));
         }
 
         tv.setTextColor(getResources().getColor(R.color.white_letter));

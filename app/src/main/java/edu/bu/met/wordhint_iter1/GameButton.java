@@ -6,12 +6,9 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.widget.Button;
 
-
-
 // Abstract class used by the Button Factory
 public abstract class GameButton {
     private String letter;
-    private Boolean hint;
     final int LETTERMARGIN = 6;
     protected Button button;
     protected int width;
@@ -45,15 +42,7 @@ public abstract class GameButton {
     public String getLetter() {
         return letter;
     }
-
-    public Boolean getHint() {
-        return hint;
-    }
-
-    public void setHint(Boolean hint) {
-        this.hint = hint;
-    }
-
+    
     // Governs what happens when a button is removed--implemented by concrete classes
     public abstract void removeButton(Button callingButton);
 }
