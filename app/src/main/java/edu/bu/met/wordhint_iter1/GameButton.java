@@ -42,7 +42,7 @@ public abstract class GameButton {
     public String getLetter() {
         return letter;
     }
-    
+
     // Governs what happens when a button is removed--implemented by concrete classes
     public abstract void removeButton(Button callingButton);
 }
