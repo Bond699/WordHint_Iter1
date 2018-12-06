@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 public class HintDialog extends Dialog {
+    public final double SCALE = .55;
     protected View dialogView;
     private GameModel model;
 
@@ -27,7 +28,7 @@ public class HintDialog extends Dialog {
         DisplayMetrics dm = new DisplayMetrics();
         getWindow().getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
-        int height = (int)(dm.heightPixels * .55);
+        int height = (int)(dm.heightPixels * SCALE);
 
         // Make Hint buttons gray if they can't be used.
         if (model.io.loadRemoveHint()) {

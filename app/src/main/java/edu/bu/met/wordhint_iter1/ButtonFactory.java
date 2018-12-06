@@ -7,8 +7,6 @@ public class ButtonFactory {
         for (int i = 0; i < model.currentPuzzle.getSolution().length(); i++) {
             model.solutionButtons.add(new BlankButton(activity, i, model,
                     Character.toString(model.currentPuzzle.getSolution().charAt(i))));
-//            char c = currentPuzzle.getSolution().charAt(i);
-//            pool.add(Character.toString(c));
         }
 
         // Pool buttons

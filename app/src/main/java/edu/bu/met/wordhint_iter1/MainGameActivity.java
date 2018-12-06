@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +29,7 @@ public class MainGameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game);
         this.model = GameModel.getInstance(this);
-        this.font = Typeface.createFromAsset(this.getAssets(), "hug_me_tight.ttf");
+        this.font = ResourcesCompat.getFont(this, R.font.hug_me_tight);
 
         Intent intent = getIntent();
         model.setCurrentPuzzle(intent.getIntExtra("puzzle", -1));
@@ -37,7 +38,6 @@ public class MainGameActivity extends Activity {
         processSavedAddedToPool();
         processSavedPoolButtons();
         processSavedSolutionButtons();
-        //processSavedRemoveHint();
         updateLevelView();
         updateStarsView();
     }
@@ -165,9 +165,10 @@ public class MainGameActivity extends Activity {
 
     private void drawSuccessMessage() {
         // Success message
+        int successMessageId = 200;
         success = new TextView(poolAreaLayout.getContext());
         success.setText(getResources().getString(R.string.puzzle_correct));
-        success.setId(200);
+        success.setId(successMessageId);
 
         success.setTypeface(font);
         success.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);

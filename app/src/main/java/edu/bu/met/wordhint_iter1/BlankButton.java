@@ -18,7 +18,7 @@ public class BlankButton extends GameButton {
         wordAreaLayout = activity.findViewById(R.id.word_area);
         button.setSoundEffectsEnabled(false);
         button.setText("");
-        button.setId(ID_OFFSET * 2 + id);
+        button.setId(ID_OFFSET + id);
         button.setBackgroundResource(R.drawable.blank_button);
 
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(width, height);

@@ -15,5 +15,7 @@
     <string name="sound">SOUND</string>
     <string name="sound_on">SOUND ON</string>
     <string name="sound_off">SOUND OFF</string>
+    <string name="play">PLAY</string>
+    <string name="compound_word_game">COMPOUND WORD GAME</string>
 
 </resources>

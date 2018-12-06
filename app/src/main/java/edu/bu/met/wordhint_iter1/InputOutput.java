@@ -3,12 +3,10 @@ package edu.bu.met.wordhint_iter1;
 import android.content.SharedPreferences;
 import android.content.Context;
 import android.view.View;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +46,6 @@ public class InputOutput {
         if (!sharedPref.contains(REMOVE_HINT_KEY)) { saveRemoveHint(false); }
         if (!sharedPref.contains(HINT_PUZZLE)) { saveHintPuzzle(1); }
         if (!sharedPref.contains(SOUND_KEY)) { setSound(true); }
-
-
         puzzleReader();
     }
 
