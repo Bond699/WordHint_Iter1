@@ -1,5 +1,6 @@
 package edu.bu.met.wordhint_iter1;
 
+import android.media.MediaPlayer;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -14,7 +15,7 @@ public class LetterButton extends GameButton {
     private RelativeLayout poolAreaLayout;
     private int idCount;
 
-    public LetterButton(MainGameActivity activity, int id, GameModel model, String letter) {
+    public LetterButton(final MainGameActivity activity, int id, final GameModel model, String letter) {
         super(activity, id, model, letter);
         poolAreaLayout = activity.findViewById(R.id.pool_area);
         idCount = poolAreaLayout.getId() + ID_OFFSET;
@@ -22,6 +23,7 @@ public class LetterButton extends GameButton {
         button.setBackgroundResource(R.drawable.pool_button);
         button.setId(idCount + id);
         button.setTextColor(activity.getResources().getColor(R.color.white_letter));
+        button.setSoundEffectsEnabled(false);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width,height);
         calcPoolButtonPosition(params, id);
@@ -31,6 +33,7 @@ public class LetterButton extends GameButton {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Sound.playClick(activity, model);
                 removeButton(button);
             }
         });
@@ -87,6 +90,7 @@ public class LetterButton extends GameButton {
                         R.anim.wrong_answer);
                 for (GameButton gb : model.solutionButtons) {
                     gb.button.startAnimation(shake);
+                    Sound.playIncorrect(activity, model);
                 }
             }
         }

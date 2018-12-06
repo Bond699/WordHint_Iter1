@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="425dp"
         android:layout_marginTop="38dp"
-
         android:fadeScrollbars="false"
         android:scrollbarSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"

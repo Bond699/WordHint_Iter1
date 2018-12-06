@@ -33,7 +33,7 @@ public abstract class GameButton {
         Display display = activity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int numLetters = model.word.size();
+        int numLetters = model.currentPuzzle.getSolution().length();
         width = (size.x - (numLetters * (LETTERMARGIN * 2))) / numLetters;
         //int width = size.x / 12;
         height = (int) (width * 1.333); // TODO: revisit this 1.33 calculation/aspect ratio

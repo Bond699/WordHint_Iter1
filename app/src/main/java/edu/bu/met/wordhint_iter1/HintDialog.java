@@ -1,5 +1,6 @@
 package edu.bu.met.wordhint_iter1;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.util.DisplayMetrics;
@@ -29,7 +30,7 @@ public class HintDialog extends Dialog {
         int height = (int)(dm.heightPixels * .55);
 
         // Make Hint buttons gray if they can't be used.
-        if (model.getRemoveHint()) {
+        if (model.io.loadRemoveHint()) {
             Button hintRemove = (Button) dialogView.findViewById(R.id.hint_remove);
             hintRemove.setBackgroundResource(R.drawable.hint_button_grey);
         }
@@ -50,6 +51,7 @@ public class HintDialog extends Dialog {
     // REVEAL button functionality
     private void onHintRevealClick() {
         Button hintReveal = (Button) dialogView.findViewById(R.id.hint_reveal);
+        hintReveal.setSoundEffectsEnabled(false);
         hintReveal.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Get a list of blank letters in the solution area
@@ -77,6 +79,8 @@ public class HintDialog extends Dialog {
                 model.io.savePoolButtons();
                 model.io.saveSolutionButtons();
                 model.io.saveAddedToPool();
+                model.io.saveHintPuzzle(model.io.getCurrentPuzzle());
+                Sound.playHint(getContext(), model);
                 dismiss();
             }
         });
@@ -85,13 +89,15 @@ public class HintDialog extends Dialog {
     // REMOVE button functionality
     private void onHintRemoveClick() {
         Button hintRemove = (Button) dialogView.findViewById(R.id.hint_remove);
+        hintRemove.setSoundEffectsEnabled(false);
         hintRemove.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (model.getRemoveHint()) { // Don't allow Remove all to run twice
+                if (model.io.loadRemoveHint()) { // Don't allow Remove all to run twice
                     dismiss();
                     return;
                 }
-                model.setRemoveHint(true);
+                model.io.saveRemoveHint(true);
+                model.io.saveHintPuzzle(model.io.getCurrentPuzzle());
 
                    // Remove all letters from the pool of available letters if it's not in the solution.
                 for (String letter : model.addedToPool) {
@@ -107,7 +113,8 @@ public class HintDialog extends Dialog {
                 model.io.savePoolButtons();
                 model.io.saveSolutionButtons();
                 model.io.saveAddedToPool();
-                model.io.saveRemoveHint();
+                model.io.saveRemoveHint(true);
+                Sound.playHint(getContext(), model);
                 dismiss();
             }
         });
@@ -126,14 +133,16 @@ public class HintDialog extends Dialog {
     private GameButton findButtonFromLetter(String letter) {
 
         //Loop through each letter in the solution word.
-        for (int i = 0; i < model.word.size(); i++) {
+        for (int i = 0; i < model.currentPuzzle.getSolution().length(); i++) {
             // Do nothing to blank buttons
             if (model.solutionButtons.get(i).button.getText().equals("")) {
                 continue;
             }
 
             // If there's a wrong letter in the solution, send the button back into pool
-            if (!model.solutionButtons.get(i).button.getText().toString().equals(model.word.get(i))) {
+            if (!model.solutionButtons.get(i).button.getText().toString().equals(
+                    Character.toString(model.currentPuzzle.getSolution().charAt(i)))) {
+                //Character.toString(model.currentPuzzle.getSolution().charAt(i))));
                 GameButton gb = model.solutionButtons.get(i);
                 gb.removeButton(gb.button);
             }

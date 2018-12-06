@@ -23,7 +23,7 @@ public class LevelChooseActivity extends AppCompatActivity {
     }
 
     public void populateLevels() {
-        for (int i = 0; i < model.puzzles.size(); i++) {
+        for (int i = 0; i < model.io.puzzles.size(); i++) {
             if (i < model.io.getHighestPuzzle()) {
                 createTextView(i + 1, true);
             }
@@ -43,6 +43,7 @@ public class LevelChooseActivity extends AppCompatActivity {
                 convertPixelsToDp(40), 0);
 
         TextView tv = new TextView(this);
+        tv.setSoundEffectsEnabled(false);
         if (greenButton) {
             tv.setBackgroundResource(R.drawable.level_button);
             tv.setText(getResources().getString(R.string.level_level) + level);
@@ -78,16 +79,4 @@ public class LevelChooseActivity extends AppCompatActivity {
         return (int) (pixels * scale + 0.5f);
     }
 
-//    android:id="@+id/textViews"
-//    android:layout_width="match_parent"
-//    android:layout_height="50dp"
-//    android:background="@drawable/level_button"
-//    android:text="LEVEL 1"
-//    android:textColor="@color/white_letter"
-//    android:fontFamily="@font/hug_me_tight"
-//    android:textSize="25sp"
-//    android:gravity="center"
-//    android:layout_marginBottom="10sp"
-//    android:layout_marginLeft="40sp"
-//    android:layout_marginRight="40sp"
 }

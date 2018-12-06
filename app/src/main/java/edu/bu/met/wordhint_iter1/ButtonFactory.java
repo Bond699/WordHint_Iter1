@@ -3,9 +3,12 @@ package edu.bu.met.wordhint_iter1;
 public class ButtonFactory {
 
     public void createButtons(MainGameActivity activity, GameModel model) {
-        // Word buttons
-        for (int i = 0; i < model.word.size(); i++) {
-            model.solutionButtons.add(new BlankButton(activity, i, model, model.word.get(i)));
+        // Word/Solution buttons
+        for (int i = 0; i < model.currentPuzzle.getSolution().length(); i++) {
+            model.solutionButtons.add(new BlankButton(activity, i, model,
+                    Character.toString(model.currentPuzzle.getSolution().charAt(i))));
+//            char c = currentPuzzle.getSolution().charAt(i);
+//            pool.add(Character.toString(c));
         }
 
         // Pool buttons

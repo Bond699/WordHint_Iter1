@@ -12,10 +12,11 @@ public class BlankButton extends GameButton {
 
     private LinearLayout wordAreaLayout;
 
-    public BlankButton(MainGameActivity activity, int id, GameModel model, String letter) {
+    public BlankButton(final MainGameActivity activity, int id, final GameModel model, String letter) {
         super(activity, id, model, letter);
 
         wordAreaLayout = activity.findViewById(R.id.word_area);
+        button.setSoundEffectsEnabled(false);
         button.setText("");
         button.setId(ID_OFFSET * 2 + id);
         button.setBackgroundResource(R.drawable.blank_button);
@@ -23,15 +24,16 @@ public class BlankButton extends GameButton {
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(width, height);
         p.setMargins(LETTERMARGIN, 1, LETTERMARGIN, 1);
         button.setLayoutParams(p);
-        wordAreaLayout.addView(button);
 
         //Assigned during constructor of BlankButton
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Sound.playClick(activity, model);
                 removeButton(button);
             }
         });
+        wordAreaLayout.addView(button);
     }
 
     public void removeButton(Button callingButton) {

@@ -1,9 +1,11 @@
 package edu.bu.met.wordhint_iter1;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainMenuActivity extends AppCompatActivity {
@@ -15,6 +17,14 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         this.model = GameModel.getInstance(getApplicationContext());
+
+        TextView tv = findViewById(R.id.main_menu_sound);
+        if (model.io.getSound()) {
+            tv.setText(getResources().getString(R.string.sound_on));
+        }
+        else {
+            tv.setText(getResources().getString(R.string.sound_off));
+        }
     }
 
     @Override
@@ -35,6 +45,18 @@ public class MainMenuActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainGameActivity.class);
         intent.putExtra("puzzle", model.io.getCurrentPuzzle());
         startActivity(intent);
+    }
+
+    public void onClickSound(View view) {
+        TextView tv = findViewById(R.id.main_menu_sound);
+        if (model.io.getSound()) {
+            model.io.setSound(false);
+            tv.setText(getResources().getString(R.string.sound_off));
+        }
+        else {
+            model.io.setSound(true);
+            tv.setText(getResources().getString(R.string.sound_on));
+        }
     }
 
 }

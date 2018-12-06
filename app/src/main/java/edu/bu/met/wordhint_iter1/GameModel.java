@@ -19,16 +19,12 @@ public class GameModel {
         }
         return instance;
     }
-
-    private Boolean removeHint;
-    private String image;
+    protected Puzzle currentPuzzle;
     protected InputOutput io;
     protected List <GameButton> solutionButtons; // Buttons: Blank at first, then contains user's solution
     protected List <GameButton> poolButtons; // Buttons representing the current state of the pool of available letter buttons
-    protected List <String> puzzles;
 
     // Used in the creation of the buttons.
-    protected List<String> word; // actual compound word to be solved
     protected List<String> alphabet; // all possible English characters any puzzle might need
     protected List<String> pool; // pool of available letters shown to the user to select from
     protected List<String> addedToPool; // letters that were added to the Pool in addition to the solution word letters.
@@ -37,48 +33,33 @@ public class GameModel {
 
     private GameModel(Context context) {
         this.context = context;
-        this.removeHint = false;
-        this.puzzles = new ArrayList<>();
+        //this.puzzles = new ArrayList<>();
         this.pool = new ArrayList<>();
         this.addedToPool = new ArrayList<>();
-        this.word = new ArrayList<>();
+        //this.word = new ArrayList<>();
         this.solutionButtons = new ArrayList<>();
         this.poolButtons = new ArrayList<>();
-        this.poolButtons = new ArrayList<>();
         this.io = new InputOutput(context, this);
-
-        populatePuzzles();
 
         // Move this to a language config file possibly
         alphabet = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
                 "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"));
     }
 
-    public String getImage() {
-        return image;
-    }
-
     public void setCurrentPuzzle(int next) {
         // Loop back to the first puzzle for now if all we've reached the puzzle limit
-        if (next > puzzles.size()) {
+        if (next > io.puzzles.size()) {
             io.setCurrentPuzzle(1);
             //io.editor.putInt(io.LEVEL_KEY, 1);
             io.editor.commit();
             return;
         }
         io.setCurrentPuzzle(next);
-        //io.editor.putInt(io.LEVEL_KEY, next);
         io.editor.commit();
     }
 
 
-    public Boolean getRemoveHint() {
-        return removeHint;
-    }
 
-    public void setRemoveHint(Boolean removeHint) {
-        this.removeHint = removeHint;
-    }
 
     public Button findFirstBlankButton () {
         // Look at each game button until we find one that's empty
@@ -97,62 +78,38 @@ public class GameModel {
         for (GameButton gb : solutionButtons) {
             sb.append(gb.button.getText());
         }
-        return sb.toString().equals(listToString());
+        return sb.toString().equals(currentPuzzle.getSolution());
     }
 
-    //Convert Array to String.
-    // Else I have to use Oreo to get to the Java version that supports String.join(",", arr1);
-    public String listToString() {
-        StringBuilder sb = new StringBuilder();
-        for (String letter : word) {
-            sb.append(letter);
-        }
-        return sb.toString();
-    }
-
-    public List<String> stringToList(String string) {
-        return new ArrayList<>(Arrays.asList(string.split("(?!^)")));
-    }
-
-    private void populatePuzzles() {
-        puzzles.add("JUMPROPE");
-        puzzles.add("HORSESHOE");
-        puzzles.add("ANTFARM");
-        puzzles.add("CARWASH");
-        puzzles.add("MOONWALK");
-        puzzles.add("TEASPOON");
-        puzzles.add("MILKSHAKE");
-        puzzles.add("TAILGATE");
-        puzzles.add("HAIRBAND");
-        puzzles.add("TIMELINE");
-        puzzles.add("BACKPACK");
-    }
+//    public List<String> stringToList(String string) {
+//        return new ArrayList<>(Arrays.asList(string.split("(?!^)")));
+//    }
 
     public void getNextPuzzle(int loadPuzzle) {
         // Clear data (if any) from previous puzzle (if any)
         pool.clear();
-        word.clear();
+        //word.clear();
         addedToPool.clear();
         solutionButtons.clear();
         poolButtons.clear();
 
         // What happens when we finish all of our puzzles? We have 2 right now. We start over.
-         if (io.getCurrentPuzzle() > puzzles.size()) {
+         if (io.getCurrentPuzzle() > io.puzzles.size()) {
             setCurrentPuzzle(1);
         }
         //String puzzle = puzzles.get(getCurrentPuzzle() - 1); // public puzzle id is 1 based, but arraylist 0 based
-        String puzzle = puzzles.get(loadPuzzle - 1);
-
-        word = stringToList(puzzle);
-        image = puzzle.toLowerCase();
+        currentPuzzle = io.puzzles.get(loadPuzzle - 1);
 
         assemblePool();
     }
 
     private void assemblePool() {
         // This starts the same as the compound word (word) and is doubled with bogus letters
-        for (String letter : word) {
-            pool.add(letter);
+        for (int i = 0; i < currentPuzzle.getSolution().length(); i++){
+            //char c = s.charAt(i);
+            char c = currentPuzzle.getSolution().charAt(i);
+            pool.add(Character.toString(c));
+            //Process char
         }
 
         int poolSize = pool.size();

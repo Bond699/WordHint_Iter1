@@ -4,6 +4,18 @@ import android.content.SharedPreferences;
 import android.content.Context;
 import android.view.View;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 public class InputOutput {
     public final String MY_PREF = "userdata";
     public final String STAR_KEY = "stars";
@@ -13,12 +25,19 @@ public class InputOutput {
     public final String POOL_KEY = "poolButtons";
     public final String ADDED_TO_POOL_KEY = "addedToPool";
     public final String REMOVE_HINT_KEY = "removeHint";
+    public final String HINT_PUZZLE = "hintPuzzle";
+    public final String SOUND_KEY = "sound";
+
+    protected List<Puzzle> puzzles;
 
     private GameModel model;
     protected SharedPreferences sharedPref;
     protected SharedPreferences.Editor editor;
+    private Context context;
 
     public InputOutput(Context context, GameModel model) {
+        this.puzzles = new ArrayList<>();
+        this.context = context;
         this.model = model;
         this.sharedPref = context.getSharedPreferences(MY_PREF, Context.MODE_PRIVATE);
         this.editor = sharedPref.edit();
@@ -26,6 +45,12 @@ public class InputOutput {
         if (!sharedPref.contains(STAR_KEY)) { setStars(0); }
         if (!sharedPref.contains(LEVEL_KEY)) { setCurrentPuzzle(1); }
         if (!sharedPref.contains(HIGHEST_KEY)) { setHighestPuzzle(1); }
+        if (!sharedPref.contains(REMOVE_HINT_KEY)) { saveRemoveHint(false); }
+        if (!sharedPref.contains(HINT_PUZZLE)) { saveHintPuzzle(1); }
+        if (!sharedPref.contains(SOUND_KEY)) { setSound(true); }
+
+
+        puzzleReader();
     }
 
     public void savePoolButtons() {
@@ -79,8 +104,8 @@ public class InputOutput {
         editor.commit();
     }
 
-    public void saveRemoveHint() {
-        editor.putBoolean(REMOVE_HINT_KEY, true);
+    public void saveRemoveHint(Boolean status) {
+        editor.putBoolean(REMOVE_HINT_KEY, status);
         editor.commit();
     }
 
@@ -97,11 +122,7 @@ public class InputOutput {
     }
 
     public Boolean loadRemoveHint() {
-        if (sharedPref.contains(REMOVE_HINT_KEY)) {
-            return sharedPref.getBoolean(REMOVE_HINT_KEY, false);
-        }
-        else return false;
-
+        return sharedPref.getBoolean(REMOVE_HINT_KEY, false);
     }
 
     public void resetPuzzlePrefs() {
@@ -134,6 +155,15 @@ public class InputOutput {
         return sharedPref.getInt(STAR_KEY, -1);
     }
 
+    public void setSound(Boolean sound) {
+        editor.putBoolean(SOUND_KEY, sound);
+        editor.commit();
+    }
+
+    public Boolean getSound() {
+        return sharedPref.getBoolean(SOUND_KEY, true);
+    }
+
     public void setStars(int stars) {
         //this.stars = stars;
         editor.putInt(STAR_KEY, stars);
@@ -144,4 +174,49 @@ public class InputOutput {
         editor.putInt(STAR_KEY, (getStars() + stars));
         editor.commit();
     }
+
+
+    public int getHintPuzzle() {
+        return sharedPref.getInt(HINT_PUZZLE, -1);
+    }
+
+    public void saveHintPuzzle(int hintPuzzle) {
+        editor.putInt(HINT_PUZZLE, hintPuzzle);
+        editor.commit();
+    }
+
+    protected void puzzleReader() {
+        try {
+            InputStream inputStream = context.getAssets().open("puzzles.xml");
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = docFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputStream);
+
+            Element element=doc.getDocumentElement();
+            element.normalize();
+
+            NodeList nList = doc.getElementsByTagName("puzzle"); // puzzle tag in xml
+
+            for (int i=0; i < nList.getLength(); i++) {
+
+                Node node = nList.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element elem = (Element) node;
+                    // correspond to tags in xml: id, solution, image
+                    Puzzle puzzle = new Puzzle(Integer.parseInt(getValue("id", elem)),
+                            getValue("solution", elem), getValue("image", elem));
+                    puzzles.add(puzzle);
+                }
+            }
+
+        } catch (Exception ex) {ex.printStackTrace();}
+
+    }
+
+    private String getValue(String tag, Element element) {
+        NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
+        Node node = nodeList.item(0);
+        return node.getNodeValue();
+    }
+
 }

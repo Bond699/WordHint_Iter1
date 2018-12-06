@@ -1,12 +1,9 @@
 package edu.bu.met.wordhint_iter1;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -14,10 +11,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class MainGameActivity extends Activity {
     private final int PUZZLE_AWARD = 5;
@@ -32,7 +27,6 @@ public class MainGameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_game);
-        //this.model = new GameModel(this);
         this.model = GameModel.getInstance(this);
         this.font = Typeface.createFromAsset(this.getAssets(), "hug_me_tight.ttf");
 
@@ -43,16 +37,32 @@ public class MainGameActivity extends Activity {
         processSavedAddedToPool();
         processSavedPoolButtons();
         processSavedSolutionButtons();
-        processSavedRemoveHint();
+        //processSavedRemoveHint();
         updateLevelView();
         updateStarsView();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (model.io.getCurrentPuzzle() != model.io.getHintPuzzle()) {
+            model.io.resetPuzzlePrefs();
+            removePoolButtons();
+            removeSolutionButtons();
+            model.io.saveRemoveHint(false);
+            setHintClickable(true);
+            model.getNextPuzzle(model.io.getCurrentPuzzle());
+            model.io.saveHintPuzzle(model.io.getCurrentPuzzle());
+            initPuzzle();
+        }
+    }
+
     private void initPuzzle() {
+        Sound.playStart(this, model);
         buttonFactory = new ButtonFactory();
         buttonFactory.createButtons(this, model);
         ImageView iv = findViewById(R.id.image_puzzle_display);
-        iv.setImageResource(getResources().getIdentifier("puzzle_" + model.getImage(),
+        iv.setImageResource(getResources().getIdentifier(model.currentPuzzle.getImage(),
                 "drawable", this.getPackageName()));
     }
 
@@ -70,15 +80,23 @@ public class MainGameActivity extends Activity {
         drawSuccessMessage();
 
         // Onclick handler for Continue Button
+        continueButton.setSoundEffectsEnabled(false);
         continueButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 removeSolutionButtons();
                 removePoolSuccessElements();
                 updateLevelView();
-                model.setRemoveHint(false);
+                model.io.saveRemoveHint(false);
+
                 setHintClickable(true);
                 model.getNextPuzzle(model.io.getCurrentPuzzle());
-                initPuzzle();
+                model.io.saveHintPuzzle(model.io.getCurrentPuzzle());
+                //initPuzzle();
+                Intent intent = new Intent(getApplicationContext(), MainGameActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                //loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("puzzle", model.io.getCurrentPuzzle());
+                startActivity(intent);
             }
         });
         poolAreaLayout.addView(continueButton);
@@ -161,6 +179,7 @@ public class MainGameActivity extends Activity {
         p.setMargins(0,0,0,40);
         success.setLayoutParams(p);
         poolAreaLayout.addView(success);
+        Sound.playCorrect(this, model);
     }
 
     // public HintDialog(Context context, GameModel model, MainMenuActivity activity, int blankLetters)
@@ -202,7 +221,6 @@ public class MainGameActivity extends Activity {
         }
         List<String> elements = Arrays.asList(solution.split("\\s*,\\s*"));
 
-        //List<GameButton> poolButtons = new ArrayList<GameButton>();
         for (int i = 0; i < elements.size(); i++) {
             String letter = elements.get(i).substring(0, 1);
             String clickable = elements.get(i).substring(elements.get(i).length() - 1);
@@ -234,15 +252,9 @@ public class MainGameActivity extends Activity {
 
         model.addedToPool.clear();
         for (String letter : elements) {
-            //Log.d("AddedToPoolTest", letter);
             model.addedToPool.add(letter);
         }
     }
-
-    private void processSavedRemoveHint() {
-        model.setRemoveHint(model.io.loadRemoveHint());
-    }
-
 
     private void setHintClickable(Boolean clickable) {
         // Guard against user pressing Hint button as/after the Continue Button appears
