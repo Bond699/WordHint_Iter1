@@ -2,6 +2,7 @@ package edu.bu.met.wordhint_iter1;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -18,7 +19,7 @@ public class LevelChooseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_choose);
         this.model = GameModel.getInstance(this);
-        this.font = Typeface.createFromAsset(this.getAssets(), "hug_me_tight.ttf");
+        this.font = ResourcesCompat.getFont(this, R.font.hug_me_tight);
         populateLevels();
     }
 
