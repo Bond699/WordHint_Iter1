@@ -1,6 +1,5 @@
 package edu.bu.met.wordhint_iter1;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.util.DisplayMetrics;

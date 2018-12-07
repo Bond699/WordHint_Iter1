@@ -29,10 +29,7 @@ public class GameModel {
     protected List<String> pool; // pool of available letters shown to the user to select from
     protected List<String> addedToPool; // letters that were added to the Pool in addition to the solution word letters.
 
-    private Context context;
-
     private GameModel(Context context) {
-        this.context = context;
         //this.puzzles = new ArrayList<>();
         this.pool = new ArrayList<>();
         this.addedToPool = new ArrayList<>();
@@ -59,8 +56,6 @@ public class GameModel {
     }
 
 
-
-
     public Button findFirstBlankButton () {
         // Look at each game button until we find one that's empty
         for (GameButton findButton: solutionButtons) {
@@ -81,11 +76,7 @@ public class GameModel {
         return sb.toString().equals(currentPuzzle.getSolution());
     }
 
-//    public List<String> stringToList(String string) {
-//        return new ArrayList<>(Arrays.asList(string.split("(?!^)")));
-//    }
-
-    public void getNextPuzzle(int loadPuzzle) {
+    public void configNextPuzzle(int loadPuzzle) {
         // Clear data (if any) from previous puzzle (if any)
         pool.clear();
         //word.clear();

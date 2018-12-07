@@ -33,7 +33,7 @@ public class MainGameActivity extends Activity {
 
         Intent intent = getIntent();
         model.setCurrentPuzzle(intent.getIntExtra("puzzle", -1));
-        model.getNextPuzzle(intent.getIntExtra("puzzle", -1));
+        model.configNextPuzzle(intent.getIntExtra("puzzle", -1));
         initPuzzle();
         processSavedAddedToPool();
         processSavedPoolButtons();
@@ -51,7 +51,7 @@ public class MainGameActivity extends Activity {
             removeSolutionButtons();
             model.io.saveRemoveHint(false);
             setHintClickable(true);
-            model.getNextPuzzle(model.io.getCurrentPuzzle());
+            model.configNextPuzzle(model.io.getCurrentPuzzle());
             model.io.saveHintPuzzle(model.io.getCurrentPuzzle());
             initPuzzle();
         }
@@ -89,7 +89,7 @@ public class MainGameActivity extends Activity {
                 model.io.saveRemoveHint(false);
 
                 setHintClickable(true);
-                model.getNextPuzzle(model.io.getCurrentPuzzle());
+                model.configNextPuzzle(model.io.getCurrentPuzzle());
                 model.io.saveHintPuzzle(model.io.getCurrentPuzzle());
                 //initPuzzle();
                 Intent intent = new Intent(getApplicationContext(), MainGameActivity.class);
@@ -138,7 +138,7 @@ public class MainGameActivity extends Activity {
 
     private void updateLevelView() {
         TextView level = findViewById(R.id.level);
-        level.setText("WORD " + Integer.toString(model.io.getCurrentPuzzle()));
+        level.setText(getResources().getString(R.string.word) + Integer.toString(model.io.getCurrentPuzzle()));
     }
 
     private void updateLevelModel() {
@@ -160,7 +160,6 @@ public class MainGameActivity extends Activity {
         params.addRule(RelativeLayout.BELOW, 200);
         params.setMargins(6, 6, 6, 6);
         continueButton.setLayoutParams(params);
-
     }
 
     private void drawSuccessMessage() {

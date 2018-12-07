@@ -43,7 +43,7 @@ public class BlankButton extends GameButton {
         }
 
         // Update View, which also updates the model. We're transforming a green letter button
-        // (callingbutton) in the solution into a blank letter. We're then taking the finding the
+        // (callingbutton) in the solution into a blank letter. We're then finding the
         // first "empty" (invisible) pool button and making it visible and defining it's letter as
         // what was in the solution area. This gives the illusion that the letter disappears from
         // the solution area and returns to the pool area.

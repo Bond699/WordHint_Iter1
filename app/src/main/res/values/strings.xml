@@ -10,6 +10,7 @@
     <string name="hint_reveal_explained">REVEAL 1 solution letter for 1 star?"</string>
     <string name="hint_button_ok">OK</string>
     <string name="level">LEVEL</string>
+    <string name="word">WORD\u0020</string>
     <string name="level_level">LEVEL\u0020</string>
     <string name="level_locked">\u0020- LOCKED</string>
     <string name="sound">SOUND</string>

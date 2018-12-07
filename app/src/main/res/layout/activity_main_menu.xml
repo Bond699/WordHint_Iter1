@@ -24,10 +24,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:textColor="@color/main_menu_compound"
-        android:textSize="30sp"
         android:fontFamily="@font/hug_me_tight"
         android:text="@string/compound_word_game"
+        android:textColor="@color/main_menu_compound"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_menu_logo" />
@@ -46,16 +46,14 @@
         android:textAlignment="center"
         android:textColor="@color/white_letter"
         android:textSize="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toBottomOf="@+id/main_menu_sound" />
 
     <TextView
         android:id="@+id/main_menu_sound"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_height="79dp"
+        android:layout_marginTop="72dp"
         android:background="@color/main_menu_level"
         android:fontFamily="@font/hug_me_tight"
         android:onClick="onClickSound"
@@ -73,7 +71,7 @@
     <TextView
         android:id="@+id/main_menu_play"
         android:layout_width="match_parent"
-        android:layout_height="87dp"
+        android:layout_height="84dp"
         android:layout_marginTop="16dp"
         android:background="@color/main_menu_play"
         android:fontFamily="@font/hug_me_tight"

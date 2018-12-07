@@ -15,6 +15,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class InputOutput {
+    public final String PUZZLE_FILENAME = "puzzles.xml";
+
     public final String MY_PREF = "userdata";
     public final String STAR_KEY = "stars";
     public final String LEVEL_KEY = "currentPuzzle";
@@ -23,11 +25,10 @@ public class InputOutput {
     public final String POOL_KEY = "poolButtons";
     public final String ADDED_TO_POOL_KEY = "addedToPool";
     public final String REMOVE_HINT_KEY = "removeHint";
-    public final String HINT_PUZZLE = "hintPuzzle";
+    public final String HINT_PUZZLE_KEY = "hintPuzzle";
     public final String SOUND_KEY = "sound";
 
     protected List<Puzzle> puzzles;
-
     private GameModel model;
     protected SharedPreferences sharedPref;
     protected SharedPreferences.Editor editor;
@@ -44,9 +45,9 @@ public class InputOutput {
         if (!sharedPref.contains(LEVEL_KEY)) { setCurrentPuzzle(1); }
         if (!sharedPref.contains(HIGHEST_KEY)) { setHighestPuzzle(1); }
         if (!sharedPref.contains(REMOVE_HINT_KEY)) { saveRemoveHint(false); }
-        if (!sharedPref.contains(HINT_PUZZLE)) { saveHintPuzzle(1); }
+        if (!sharedPref.contains(HINT_PUZZLE_KEY)) { saveHintPuzzle(1); }
         if (!sharedPref.contains(SOUND_KEY)) { setSound(true); }
-        puzzleReader();
+        puzzleParser();
     }
 
     public void savePoolButtons() {
@@ -173,17 +174,17 @@ public class InputOutput {
 
 
     public int getHintPuzzle() {
-        return sharedPref.getInt(HINT_PUZZLE, -1);
+        return sharedPref.getInt(HINT_PUZZLE_KEY, -1);
     }
 
     public void saveHintPuzzle(int hintPuzzle) {
-        editor.putInt(HINT_PUZZLE, hintPuzzle);
+        editor.putInt(HINT_PUZZLE_KEY, hintPuzzle);
         editor.commit();
     }
 
-    protected void puzzleReader() {
+    protected void puzzleParser() {
         try {
-            InputStream inputStream = context.getAssets().open("puzzles.xml");
+            InputStream inputStream = context.getAssets().open(PUZZLE_FILENAME);
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = docFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputStream);
