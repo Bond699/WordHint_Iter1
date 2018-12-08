@@ -12,7 +12,7 @@ public class Sound {
 
     public static void playIncorrect(Context context, GameModel model) {
         if (model.io.getSound())
-        MediaPlayer.create(context, R.raw.puzzle_incorrect).start();
+            MediaPlayer.create(context, R.raw.puzzle_incorrect).start();
     }
 
     public static void playCorrect(Context context, GameModel model) {
@@ -29,4 +29,5 @@ public class Sound {
         if (model.io.getSound())
             MediaPlayer.create(context, R.raw.puzzle_hint).start();
     }
+
 }
