@@ -104,11 +104,28 @@ public class GameModel {
         }
 
         int poolSize = pool.size();
-        while (pool.size() < poolSize * 2) {
+        while (pool.size() < poolSize * 2) { // Double the number of letters
             String letterToAdd = alphabet.get(new Random().nextInt(alphabet.size() - 1));
             pool.add(letterToAdd);
             addedToPool.add(letterToAdd); // makes it easier later when Remove Hint button used.
         }
         Collections.shuffle(pool);
+
+        //str1.toLowerCase().contains(str2.toLowerCase())
     }
+
+    // Make sure random assembling of pool letters didn't result in a profane letter
+//    private void profanityChecker() {
+//        StringBuilder sb = new StringBuilder();
+//        for (String s : pool)
+//        {
+//            sb.append(s);
+//        }
+//
+//
+//
+//        if (sb.toString().contains("FUCK")) {
+//            Collections.shuffle(pool);
+//        }
+//    }
 }

@@ -28,7 +28,7 @@
                 android:layout_marginLeft="5dp"
                 android:onClick="onClickBack"
                 android:soundEffectsEnabled = "false"
-                android:background="@drawable/back_arrow2" />
+                android:background="@drawable/back_arrow" />
 
         </LinearLayout>
 

@@ -125,7 +125,6 @@ public class HintDialog extends Dialog {
         //Update model
         if (model.io.getStars() > 0 ) {
             model.io.setStars(model.io.getStars() - 1);
-            //updateStarsView();
         }
     }
 
@@ -144,7 +143,7 @@ public class HintDialog extends Dialog {
                     Character.toString(model.currentPuzzle.getSolution().charAt(i)))) {
                 //Character.toString(model.currentPuzzle.getSolution().charAt(i))));
                 GameButton gb = model.solutionButtons.get(i);
-                gb.removeButton(gb.button);
+                gb.moveButtonFromSolutionToPool(gb.button);
             }
         }
 

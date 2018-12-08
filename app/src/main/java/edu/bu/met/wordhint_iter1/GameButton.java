@@ -43,7 +43,7 @@ public abstract class GameButton {
     }
 
     // Governs what happens when a button is removed--implemented by concrete classes
-    public abstract void removeButton(Button callingButton);
+    public abstract void moveButtonFromSolutionToPool(Button callingButton);
 }
 
 

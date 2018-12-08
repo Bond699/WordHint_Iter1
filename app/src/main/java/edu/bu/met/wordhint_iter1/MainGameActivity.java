@@ -68,14 +68,13 @@ public class MainGameActivity extends Activity {
 
     protected void puzzleSuccess() {
         setHintClickable(false); // Prevent clicking "Hint" under puzzle when showing Continue button
-
+        removePoolButtons();
         // Resets the non-scoring and non-level data, like pool, solution, etc.
         model.io.resetPuzzlePrefs();
 
         updateStarsModel();
         updateStarsView();
         updateLevelModel();
-        removePoolButtons();
         drawContinueButton();
         drawSuccessMessage();
 
@@ -121,7 +120,6 @@ public class MainGameActivity extends Activity {
         // continue button there.
         poolAreaLayout = findViewById(R.id.pool_area);
         for (GameButton gb : model.poolButtons) {
-            gb.button.setVisibility(View.GONE);
             poolAreaLayout.removeView(gb.button);
         }
     }

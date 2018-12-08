@@ -4,8 +4,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import java.io.Serializable;
-
 
 // Concrete class used by the ButtonFactory
 public class BlankButton extends GameButton {
@@ -30,13 +28,13 @@ public class BlankButton extends GameButton {
             @Override
             public void onClick(View v) {
                 Sound.playClick(activity, model);
-                removeButton(button);
+                moveButtonFromSolutionToPool(button);
             }
         });
         wordAreaLayout.addView(button);
     }
 
-    public void removeButton(Button callingButton) {
+    public void moveButtonFromSolutionToPool(Button callingButton) {
         // Don't allow clicking on blank buttons or buttons that have been revealed in a hint
         if (callingButton.getText().equals("") || !callingButton.isClickable()) {
             return;

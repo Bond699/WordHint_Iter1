@@ -1,13 +1,11 @@
 package edu.bu.met.wordhint_iter1;
 
-import android.media.MediaPlayer;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-import java.io.Serializable;
 
 // Concrete class used by the ButtonFactory
 public class LetterButton extends GameButton {
@@ -34,7 +32,7 @@ public class LetterButton extends GameButton {
             @Override
             public void onClick(View v) {
                 Sound.playClick(activity, model);
-                removeButton(button);
+                moveButtonFromSolutionToPool(button);
             }
         });
         poolAreaLayout.addView(button);
@@ -43,30 +41,30 @@ public class LetterButton extends GameButton {
     public void calcPoolButtonPosition(RelativeLayout.LayoutParams p, int id) {
         // Refactor this mess. Controls the line and relative position of each letter.
 
-        // First letter
+        // Applies to first letter
         if (id == 0) {
             p.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             p.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
             return;
         }
 
-        // Midpoint letter
+        // First half, up to and including Midpoint letter. 2 for half
         if (id == (model.pool.size() / 2)) {
             p.addRule(RelativeLayout.BELOW, poolAreaLayout.getId() + ID_OFFSET);
             return;
         }
 
-        // Letters greater than midpoint
+        // Second half, greater than the mid point letter. 2 for half
         if (id > (model.pool.size() / 2)) {
             p.addRule(RelativeLayout.BELOW, poolAreaLayout.getId() + ID_OFFSET);
         }
 
-        // All letters not 0 or midpoint
+        // Applies to all letters except first letter and  midpoint letter
         p.addRule(RelativeLayout.RIGHT_OF, idCount + id - 1);
     }
 
 
-    public void removeButton(Button callingButton) {
+    public void moveButtonFromSolutionToPool(Button callingButton) {
         // See if there's a blank button in the solution area
         Button button = model.findFirstBlankButton();
         if (button == null) {
