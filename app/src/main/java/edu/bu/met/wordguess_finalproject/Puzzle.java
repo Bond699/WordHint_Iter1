@@ -1,4 +1,4 @@
-package edu.bu.met.wordhint_iter1;
+package edu.bu.met.wordguess_finalproject;
 
 public class Puzzle {
     private int id;

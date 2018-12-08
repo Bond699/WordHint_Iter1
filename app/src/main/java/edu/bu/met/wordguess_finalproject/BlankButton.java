@@ -1,4 +1,4 @@
-package edu.bu.met.wordhint_iter1;
+package edu.bu.met.wordguess_finalproject;
 
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +13,7 @@ public class BlankButton extends GameButton {
     public BlankButton(final MainGameActivity activity, int id, final GameModel model, String letter) {
         super(activity, id, model, letter);
 
-        wordAreaLayout = activity.findViewById(R.id.word_area);
+        wordAreaLayout = activity.findViewById(R.id.solution_area);
         button.setSoundEffectsEnabled(false);
         button.setText("");
         button.setId(ID_OFFSET + id);

@@ -1,4 +1,4 @@
-package edu.bu.met.wordhint_iter1;
+package edu.bu.met.wordguess_finalproject;
 
 import android.content.Context;
 import android.media.MediaPlayer;

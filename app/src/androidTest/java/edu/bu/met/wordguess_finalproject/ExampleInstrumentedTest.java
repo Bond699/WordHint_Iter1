@@ -1,4 +1,4 @@
-package edu.bu.met.wordhint_iter1;
+package edu.bu.met.wordguess_finalproject;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("edu.bu.met.wordhint_iter1", appContext.getPackageName());
+        assertEquals("edu.bu.met.wordguess_finalproject", appContext.getPackageName());
     }
 }

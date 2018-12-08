@@ -1,4 +1,4 @@
-package edu.bu.met.wordhint_iter1;
+package edu.bu.met.wordguess_finalproject;
 
 import android.content.SharedPreferences;
 import android.content.Context;
@@ -15,18 +15,17 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class InputOutput {
-    public final String PUZZLE_FILENAME = "puzzles.xml";
-
-    public final String MY_PREF = "userdata";
-    public final String STAR_KEY = "stars";
-    public final String LEVEL_KEY = "currentPuzzle";
-    public final String HIGHEST_KEY = "highestPuzzle";
-    public final String SOLUTION_KEY = "solutionButtons";
-    public final String POOL_KEY = "poolButtons";
-    public final String ADDED_TO_POOL_KEY = "addedToPool";
-    public final String REMOVE_HINT_KEY = "removeHint";
-    public final String HINT_PUZZLE_KEY = "hintPuzzle";
-    public final String SOUND_KEY = "sound";
+    private final String PUZZLE_FILENAME = "puzzles.xml";
+    private final String MY_PREF = "userdata";
+    private final String STAR_KEY = "stars";
+    private final String LEVEL_KEY = "currentPuzzle";
+    private final String HIGHEST_KEY = "highestPuzzle";
+    private final String SOLUTION_KEY = "solutionButtons";
+    private final String POOL_KEY = "poolButtons";
+    private final String ADDED_TO_POOL_KEY = "addedToPool";
+    private final String REMOVE_HINT_KEY = "removeHint";
+    private final String HINT_PUZZLE_KEY = "hintPuzzle";
+    private final String SOUND_KEY = "sound";
 
     protected List<Puzzle> puzzles;
     private GameModel model;
@@ -182,7 +181,8 @@ public class InputOutput {
         editor.commit();
     }
 
-    protected void puzzleParser() {
+    // Adapted from: https://www.tutorialspoint.com/android/android_xml_parsers.htm
+    private void puzzleParser() {
         try {
             InputStream inputStream = context.getAssets().open(PUZZLE_FILENAME);
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -199,7 +199,7 @@ public class InputOutput {
                 Node node = nList.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element elem = (Element) node;
-                    // correspond to tags in xml: id, solution, image
+                    // corresponds to tags in xml: id, solution, image
                     Puzzle puzzle = new Puzzle(Integer.parseInt(getValue("id", elem)),
                             getValue("solution", elem), getValue("image", elem));
                     puzzles.add(puzzle);
@@ -207,13 +207,12 @@ public class InputOutput {
             }
 
         } catch (Exception ex) {ex.printStackTrace();}
-
     }
 
     private String getValue(String tag, Element element) {
-        NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
-        Node node = nodeList.item(0);
-        return node.getNodeValue();
+        NodeList nList = element.getElementsByTagName(tag).item(0).getChildNodes();
+        Node n = nList.item(0);
+        return n.getNodeValue();
     }
 
 }

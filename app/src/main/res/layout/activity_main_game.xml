@@ -78,10 +78,7 @@
         </LinearLayout>
     </LinearLayout>
 
-
-
-
-        <LinearLayout
+     <LinearLayout
             android:id="@+id/puzzle_box"
             android:layout_width="400dp"
             android:layout_height="250dp"
@@ -120,7 +117,7 @@
         </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/word_area"
+        android:id="@+id/solution_area"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

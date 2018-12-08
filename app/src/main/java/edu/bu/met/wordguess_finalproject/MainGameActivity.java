@@ -1,4 +1,4 @@
-package edu.bu.met.wordhint_iter1;
+package edu.bu.met.wordguess_finalproject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -71,7 +71,6 @@ public class MainGameActivity extends Activity {
         removePoolButtons();
         // Resets the non-scoring and non-level data, like pool, solution, etc.
         model.io.resetPuzzlePrefs();
-
         updateStarsModel();
         updateStarsView();
         updateLevelModel();
@@ -86,14 +85,12 @@ public class MainGameActivity extends Activity {
                 removePoolSuccessElements();
                 updateLevelView();
                 model.io.saveRemoveHint(false);
-
                 setHintClickable(true);
                 model.configNextPuzzle(model.io.getCurrentPuzzle());
                 model.io.saveHintPuzzle(model.io.getCurrentPuzzle());
-                //initPuzzle();
+
                 Intent intent = new Intent(getApplicationContext(), MainGameActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                //loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("puzzle", model.io.getCurrentPuzzle());
                 startActivity(intent);
             }
@@ -133,10 +130,10 @@ public class MainGameActivity extends Activity {
         star.setText(Integer.toString(model.io.getStars()));
     }
 
-
     private void updateLevelView() {
         TextView level = findViewById(R.id.level);
-        level.setText(getResources().getString(R.string.word) + Integer.toString(model.io.getCurrentPuzzle()));
+        level.setText(getResources().getString(R.string.word) +
+                Integer.toString(model.io.getCurrentPuzzle()));
     }
 
     private void updateLevelModel() {
@@ -180,7 +177,6 @@ public class MainGameActivity extends Activity {
         Sound.playCorrect(this, model);
     }
 
-    // public HintDialog(Context context, GameModel model, MainMenuActivity activity, int blankLetters)
     public void onHintClick(View view) {
         // Setup the dialog box and the view
         new HintDialog(this, model);

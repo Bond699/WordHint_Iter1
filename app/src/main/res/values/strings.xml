@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WordHint_Iter1</string>
+    <string name="app_name">WordGuess</string>
     <string name="header_level">WORD X</string>
     <string name="star_coins">0</string>
     <string name="puzzle_correct">CORRECT!</string>

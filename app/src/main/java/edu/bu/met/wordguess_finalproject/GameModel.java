@@ -1,4 +1,4 @@
-package edu.bu.met.wordhint_iter1;
+package edu.bu.met.wordguess_finalproject;
 
 
 import android.content.Context;
@@ -30,10 +30,8 @@ public class GameModel {
     protected List<String> addedToPool; // letters that were added to the Pool in addition to the solution word letters.
 
     private GameModel(Context context) {
-        //this.puzzles = new ArrayList<>();
         this.pool = new ArrayList<>();
         this.addedToPool = new ArrayList<>();
-        //this.word = new ArrayList<>();
         this.solutionButtons = new ArrayList<>();
         this.poolButtons = new ArrayList<>();
         this.io = new InputOutput(context, this);
@@ -79,7 +77,6 @@ public class GameModel {
     public void configNextPuzzle(int loadPuzzle) {
         // Clear data (if any) from previous puzzle (if any)
         pool.clear();
-        //word.clear();
         addedToPool.clear();
         solutionButtons.clear();
         poolButtons.clear();

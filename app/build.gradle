@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "edu.bu.met.wordhint_iter1"
+        applicationId "edu.bu.met.wordguess_finalproject"
         minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
