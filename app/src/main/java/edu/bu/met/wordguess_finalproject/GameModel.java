@@ -45,7 +45,6 @@ public class GameModel {
         // Loop back to the first puzzle for now if all we've reached the puzzle limit
         if (next > io.puzzles.size()) {
             io.setCurrentPuzzle(1);
-            //io.editor.putInt(io.LEVEL_KEY, 1);
             io.editor.commit();
             return;
         }
@@ -85,8 +84,7 @@ public class GameModel {
          if (io.getCurrentPuzzle() > io.puzzles.size()) {
             setCurrentPuzzle(1);
         }
-        //String puzzle = puzzles.get(getCurrentPuzzle() - 1); // public puzzle id is 1 based, but arraylist 0 based
-        currentPuzzle = io.puzzles.get(loadPuzzle - 1);
+        currentPuzzle = io.puzzles.get(loadPuzzle - 1); // public puzzle id is 1 based, but arraylist 0 based
 
         assemblePool();
     }
@@ -94,10 +92,8 @@ public class GameModel {
     private void assemblePool() {
         // This starts the same as the compound word (word) and is doubled with bogus letters
         for (int i = 0; i < currentPuzzle.getSolution().length(); i++){
-            //char c = s.charAt(i);
             char c = currentPuzzle.getSolution().charAt(i);
             pool.add(Character.toString(c));
-            //Process char
         }
 
         int poolSize = pool.size();
@@ -107,22 +103,5 @@ public class GameModel {
             addedToPool.add(letterToAdd); // makes it easier later when Remove Hint button used.
         }
         Collections.shuffle(pool);
-
-        //str1.toLowerCase().contains(str2.toLowerCase())
     }
-
-    // Make sure random assembling of pool letters didn't result in a profane letter
-//    private void profanityChecker() {
-//        StringBuilder sb = new StringBuilder();
-//        for (String s : pool)
-//        {
-//            sb.append(s);
-//        }
-//
-//
-//
-//        if (sb.toString().contains("FUCK")) {
-//            Collections.shuffle(pool);
-//        }
-//    }
 }

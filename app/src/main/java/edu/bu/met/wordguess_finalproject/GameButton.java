@@ -29,7 +29,7 @@ public abstract class GameButton {
         button.setIncludeFontPadding(false);
         button.setTag(Integer.valueOf(id));
 
-        // First attempt at scaling buttons to fit the space available
+        // Scaling buttons to fit the space available
         Display display = activity.getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +16,10 @@ public class HintDialog extends Dialog {
     protected View dialogView;
     private GameModel model;
 
-    public HintDialog(Context context, GameModel model) {
+    public HintDialog(Context context) {
         super(context);
-        this.model = model;
+
+        this.model = GameModel.getInstance(context);
 
         // Setup the dialog box and the view
         dialogView = getLayoutInflater().inflate(R.layout.activity_hint, null);
@@ -80,7 +82,7 @@ public class HintDialog extends Dialog {
                 model.io.saveSolutionButtons();
                 model.io.saveAddedToPool();
                 model.io.saveHintPuzzle(model.io.getCurrentPuzzle());
-                Sound.playHint(getContext(), model);
+                Sound.playHint(getContext());
                 dismiss();
             }
         });
@@ -114,7 +116,7 @@ public class HintDialog extends Dialog {
                 model.io.saveSolutionButtons();
                 model.io.saveAddedToPool();
                 model.io.saveRemoveHint(true);
-                Sound.playHint(getContext(), model);
+                Sound.playHint(getContext());
                 dismiss();
             }
         });
@@ -172,4 +174,5 @@ public class HintDialog extends Dialog {
         }
         return onlyBlank;
     }
+
 }

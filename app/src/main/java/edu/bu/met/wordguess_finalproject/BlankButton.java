@@ -27,7 +27,7 @@ public class BlankButton extends GameButton {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Sound.playClick(activity, model);
+                Sound.playClick(activity);
                 moveButtonFromSolutionToPool(button);
             }
         });

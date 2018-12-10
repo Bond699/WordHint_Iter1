@@ -31,7 +31,7 @@ public class LetterButton extends GameButton {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Sound.playClick(activity, model);
+                Sound.playClick(activity);
                 moveButtonFromSolutionToPool(button);
             }
         });
@@ -39,8 +39,6 @@ public class LetterButton extends GameButton {
     }
 
     public void calcPoolButtonPosition(RelativeLayout.LayoutParams p, int id) {
-        // Refactor this mess. Controls the line and relative position of each letter.
-
         // Applies to first letter
         if (id == 0) {
             p.addRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -88,7 +86,7 @@ public class LetterButton extends GameButton {
                         R.anim.wrong_answer);
                 for (GameButton gb : model.solutionButtons) {
                     gb.button.startAnimation(shake);
-                    Sound.playIncorrect(activity, model);
+                    Sound.playIncorrect(activity);
                 }
             }
         }

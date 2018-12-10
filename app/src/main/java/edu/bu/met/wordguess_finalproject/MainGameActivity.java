@@ -1,6 +1,8 @@
 package edu.bu.met.wordguess_finalproject;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -31,9 +33,6 @@ public class MainGameActivity extends Activity {
         this.model = GameModel.getInstance(this);
         this.font = ResourcesCompat.getFont(this, R.font.hug_me_tight);
 
-        Intent intent = getIntent();
-        model.setCurrentPuzzle(intent.getIntExtra("puzzle", -1));
-        model.configNextPuzzle(intent.getIntExtra("puzzle", -1));
         initPuzzle();
         processSavedAddedToPool();
         processSavedPoolButtons();
@@ -58,11 +57,14 @@ public class MainGameActivity extends Activity {
     }
 
     private void initPuzzle() {
-        Sound.playStart(this, model);
+        Intent intent = getIntent();
+        model.setCurrentPuzzle(intent.getIntExtra("puzzle", -1));
+        model.configNextPuzzle(intent.getIntExtra("puzzle", -1));
+        Sound.playStart(this);
         buttonFactory = new ButtonFactory();
         buttonFactory.createButtons(this, model);
-        ImageView iv = findViewById(R.id.image_puzzle_display);
-        iv.setImageResource(getResources().getIdentifier(model.currentPuzzle.getImage(),
+        ImageView puzzle = findViewById(R.id.image_puzzle_display);
+        puzzle.setImageResource(getResources().getIdentifier(model.currentPuzzle.getImage(),
                 "drawable", this.getPackageName()));
     }
 
@@ -112,9 +114,9 @@ public class MainGameActivity extends Activity {
         poolAreaLayout.removeView(continueButton);
     }
 
+    // Remove the buttons from the pool area (because we're going to put a success message and
+    // continue button there.
     private void removePoolButtons() {
-        // Remove the buttons from the pool area (because we're going to put a success message and
-        // continue button there.
         poolAreaLayout = findViewById(R.id.pool_area);
         for (GameButton gb : model.poolButtons) {
             poolAreaLayout.removeView(gb.button);
@@ -174,13 +176,21 @@ public class MainGameActivity extends Activity {
         p.setMargins(0,0,0,40);
         success.setLayoutParams(p);
         poolAreaLayout.addView(success);
-        Sound.playCorrect(this, model);
+        Sound.playCorrect(this);
     }
 
     public void onHintClick(View view) {
         // Setup the dialog box and the view
-        new HintDialog(this, model);
-        updateStarsView();
+        Dialog dialog = new HintDialog(this);
+
+        // Refresh the stars view after the dialog box closes
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                updateStarsView();
+            }
+        });
+
     }
 
     private void processSavedPoolButtons() {
@@ -260,4 +270,5 @@ public class MainGameActivity extends Activity {
         Intent intent = new Intent(this, MainMenuActivity.class);
         startActivity(intent);
     }
+
 }
