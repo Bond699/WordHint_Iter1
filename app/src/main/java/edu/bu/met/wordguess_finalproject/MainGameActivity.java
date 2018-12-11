@@ -41,6 +41,8 @@ public class MainGameActivity extends Activity {
         updateStarsView();
     }
 
+    // Discards and resets the pool, solution, and hint saved data if the user started a new
+    // puzzle without finishing the puzzle this data was valid for.
     @Override
     public void onResume() {
         super.onResume();
@@ -57,12 +59,17 @@ public class MainGameActivity extends Activity {
     }
 
     private void initPuzzle() {
+        // Intent sent by MainMenuActivity
         Intent intent = getIntent();
         model.setCurrentPuzzle(intent.getIntExtra("puzzle", -1));
         model.configNextPuzzle(intent.getIntExtra("puzzle", -1));
         Sound.playStart(this);
+
+        //Buttons
         buttonFactory = new ButtonFactory();
         buttonFactory.createButtons(this, model);
+
+        //Puzzle image
         ImageView puzzle = findViewById(R.id.image_puzzle_display);
         puzzle.setImageResource(getResources().getIdentifier(model.currentPuzzle.getImage(),
                 "drawable", this.getPackageName()));

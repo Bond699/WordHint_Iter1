@@ -44,7 +44,6 @@ public class MainMenuActivity extends AppCompatActivity {
         intent.putExtra("puzzle", model.io.getCurrentPuzzle());
         startActivity(intent);
     }
-
     public void onClickSound(View view) {
         TextView tv = findViewById(R.id.main_menu_sound);
         if (model.io.getSound()) {

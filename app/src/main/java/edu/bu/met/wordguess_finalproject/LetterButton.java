@@ -38,6 +38,7 @@ public class LetterButton extends GameButton {
         poolAreaLayout.addView(button);
     }
 
+    // Configure Pool button layout on 2 rows
     public void calcPoolButtonPosition(RelativeLayout.LayoutParams p, int id) {
         // Applies to first letter
         if (id == 0) {
@@ -80,6 +81,8 @@ public class LetterButton extends GameButton {
             if ( model.checkSolution()) {
                 activity.puzzleSuccess();
             }
+
+            // Max number of letters in solution, but wrong answer.
             else {
                 // Idea from here: http://droid-blog.net/2012/05/15/two-simple-ways-to-make-your-users-aware-of-incorrect-input/
                 Animation shake = AnimationUtils.loadAnimation(poolAreaLayout.getContext(),
